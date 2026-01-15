@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
@@ -15,12 +15,12 @@ export default async function handler(req, res) {
     const data = await r.json();
 
     res.status(200).json({
-      reply: data.result // rename, NO FAA TRACE
+      reply: data.result || "Azbry-AI gak dapet jawaban."
     });
 
-  } catch (err) {
+  } catch (e) {
     res.status(500).json({
-      reply: "Azbry-AI lagi capek, coba lagi."
+      reply: "Azbry-AI error. Coba lagi."
     });
   }
 }
